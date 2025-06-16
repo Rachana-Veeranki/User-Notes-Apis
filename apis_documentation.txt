@@ -1,0 +1,123 @@
+User Notes API – API Documentation
+
+Base URL: http://127.0.0.1:8000/
+
+Authentication APIs
+
+POST /register/ — User Registration
+Description: Create a new user
+
+Authentication: ❌ Not Required
+
+Method: POST
+
+Body (form-data or JSON):
+{
+  "username": "Rachana1",
+  "password": "testpass123"
+}
+Response:
+{
+  "message": "User registered successfully"
+}
+
+ POST /login/ — User Login (Token)
+Description: Logs in a user and returns an auth token
+
+Authentication: ❌ Not Required
+
+Method: POST
+
+Body (form-data or JSON):
+
+{
+  "username": "Rachana1",
+  "password": "testpass123"
+}
+Response:
+{
+  "token": "707d5db9577e7487d018b8ab39a99ebf0e2f59a4"
+}
+
+Use this token in the Authorization header:
+Authorization: Token 707d5db9577e7487d018b8ab39a99ebf0e2f59a4
+
+
+Notes APIs (Protected – Require Token)
+All the following routes require this header:
+
+Authorization: Token <your_token_here>
+
+📄GET /notes/ — Fetch All Notes
+Description: Get a list of notes for the logged-in user
+
+Method: GET
+
+Authentication: ✅ Required
+
+Response Example:
+[
+  {
+    "id": 1,
+    "title": "My First Note",
+    "content": "This is the content of the note."
+  }
+]
+
+📝POST /notes/ — Create a Note
+Description: Add a new note
+
+Method: POST
+
+Authentication: ✅ Required
+
+Body (form-data or JSON):
+{
+  "title": "My Second Note",
+  "content": "This is the content of the note."
+}
+Response:
+{
+  "id": 2,
+  "title": "My Second Note",
+  "content": "This is the content of the note."
+}
+
+✏️PUT /notes/{id}/ — Update a Note
+Description: Update an existing note by ID
+
+Method: PUT
+
+Authentication: ✅ Required
+
+Example URL: /notes/1/
+
+Body (form-data or JSON):
+{
+  "title": "Updated Note",
+  "content": "Updated content."
+}
+
+❌ DELETE /notes/{id}/ — Delete a Note
+Description: Delete a specific note
+
+Method: DELETE
+
+Authentication: ✅ Required
+
+Example URL: /notes/1/
+
+Response:
+
+HTTP 204 No Content (successful delete)
+
+✅ Headers for Protected Routes
+| Key           | Value                             |
+| ------------- | --------------------------------- |
+| Authorization | `Token <your_token_here>`         |
+| Content-Type  | `application/json` or `form-data` |
+
+📦 Postman Collection
+You can import this Postman collection:
+
+File: Notes_Apis.postman_collection.json
